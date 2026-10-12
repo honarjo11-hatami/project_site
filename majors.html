@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رشته‌های تحصیلی | هنرستان حاتمی</title>
+  <meta name="description" content="معرفی هشت رشته تحصیلی هنرستان فنی و حرفه‌ای دولتی حاتمی ورزنه">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="page-banner">
+    <h1>رشته‌های تحصیلی</h1>
+    <div class="breadcrumb"><a href="index.html">صفحه اصلی</a> <span>/</span> <span>رشته‌های تحصیلی</span></div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">رشته‌های تحصیلی</span>
+        <h2 class="section-title">مسیر علاقه‌ات را انتخاب کن</h2>
+        <p class="section-subtitle">با رشته‌های تحصیلی هنرستان آشنا شو و زمینه مورد علاقه خود را برای یادگیری مهارت‌های تخصصی انتخاب کن.</p>
+      </div>
+      <div class="majors-grid" id="majorsGrid"></div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('majors');
+      document.getElementById('majorsGrid').innerHTML = MAJORS.map(m => `
+        <a class="major-card" href="major-detail.html?id=${m.id}">
+          <div class="major-card-img-wrap">
+            <img class="major-card-img" src="${m.image}" alt="${m.title}">
+            <span class="major-card-tag">رشته</span>
+          </div>
+          <div class="major-card-body">
+            <h3>${m.title}</h3>
+            <p>${m.short}</p>
+            <div class="major-card-skills">
+              ${m.skills.slice(0,3).map(s => `<span class="skill-tag">${s}</span>`).join('')}
+            </div>
+            <span class="major-card-link">معرفی رشته ${ICONS.arrow}</span>
+          </div>
+        </a>
+      `).join('');
+    });
+  </script>
+</body>
+</html>

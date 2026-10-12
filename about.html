@@ -1,1 +1,149 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>درباره من</title><link rel="stylesheet" href="css/style.css"></head><body><main class="section"><div class="container"><h1>درباره من</h1><p>معرفی مدرس، سوابق و هدف سایت آموزشی در این بخش قرار می‌گیرد.</p><a class="btn" href="index.html">صفحه اصلی</a></div></main></body></html>
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>درباره هنرستان | هنرستان حاتمی</title>
+  <meta name="description" content="معرفی، تاریخچه، اهداف و امکانات هنرستان فنی و حرفه‌ای دولتی حاتمی ورزنه">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="page-banner">
+    <h1>درباره هنرستان</h1>
+    <div class="breadcrumb"><a href="index.html">صفحه اصلی</a> <span>/</span> <span>درباره هنرستان</span></div>
+  </section>
+
+  <!-- Introduction -->
+  <section class="section">
+    <div class="container">
+      <div class="about-page-grid">
+        <div>
+          <span class="section-label">معرفی هنرستان</span>
+          <h2 class="section-title" style="text-align:right;">آموزش تخصصی، مهارت برای زندگی</h2>
+          <p>هنرستان فنی و حرفه‌ای دولتی حاتمی ورزنه با هدف پرورش استعدادها، تقویت مهارت‌های تخصصی و آماده‌سازی هنرجویان برای آینده تحصیلی و شغلی فعالیت می‌کند. در این مجموعه، آموزش نظری در کنار تمرین عملی، خلاقیت، مسئولیت‌پذیری و کار گروهی مورد توجه قرار می‌گیرد.</p>
+          <p>این هنرستان با بهره‌گیری از هنرآموزان مجرب و کارگاه‌های مجهز، محیطی پویا و سازنده برای رشد هنرجویان فراهم آورده است.</p>
+          <div class="form-note" id="aboutNote1"></div>
+        </div>
+        <div>
+          <img class="about-page-img" src="https://images.unsplash.com/photo-1541339907198-e08756dedf8f?w=600&q=80" alt="ساختمان هنرستان حاتمی">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision & Values -->
+  <section class="section section-light" id="vision">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">اهداف و چشم‌انداز</span>
+        <h2 class="section-title">ارزش‌ها و چشم‌انداز هنرستان</h2>
+        <p class="section-subtitle">آنچه هنرستان حاتمی را در مسیر آموزش مهارت‌محور متمایز می‌کند.</p>
+      </div>
+      <div class="values-grid" id="valuesGrid"></div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">کادر آموزشی</span>
+        <h2 class="section-title">مدیریت و هنرآموزان</h2>
+        <p class="section-subtitle">کادر مجرب و متخصص هنرستان حاتمی در خدمت هنرجویان.</p>
+      </div>
+      <div class="team-grid" id="teamGrid"></div>
+      <div class="form-note" id="aboutNote2" style="margin-top:24px;text-align:center;"></div>
+    </div>
+  </section>
+
+  <!-- Facilities -->
+  <section class="section section-light" id="facilities">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">امکانات و کارگاه‌ها</span>
+        <h2 class="section-title">کارگاه‌ها و امکانات آموزشی</h2>
+        <p class="section-subtitle">هنرستان حاتمی با کارگاه‌های مجهز، محیطی مناسب برای آموزش مهارت‌های عملی فراهم آورده است.</p>
+      </div>
+      <div class="majors-grid" id="facilitiesGrid"></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">گالری هنرستان</span>
+        <h2 class="section-title">محیط آموزشی هنرستان</h2>
+        <p class="section-subtitle">نگاهی به محیط، کارگاه‌ها و فضاهای آموزشی هنرستان حاتمی.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('about');
+
+      document.getElementById('aboutNote1').innerHTML = ICONS.clock + ' محتوای این بخش به‌صورت نمونه ارائه شده است و توسط مدیر سایت قابل ویرایش خواهد بود.';
+      document.getElementById('aboutNote2').innerHTML = ICONS.user + ' اطلاعات کادر آموزشی به‌صورت نمونه نمایش داده شده است. مدیر سایت می‌تواند تصاویر و مشخصات واقعی را جایگزین کند.';
+
+      document.getElementById('valuesGrid').innerHTML = VALUES.map(v => `
+        <div class="value-card">
+          <div class="value-card-icon">${ICONS[v.icon]}</div>
+          <h3>${v.title}</h3>
+          <p>${v.desc}</p>
+        </div>
+      `).join('');
+
+      document.getElementById('teamGrid').innerHTML = TEAM.map(t => `
+        <div class="team-card">
+          <div class="team-card-img" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);">
+            ${ICONS.user}
+          </div>
+          <div class="team-card-body">
+            <h4>${t.name}</h4>
+            <p>${t.role}</p>
+          </div>
+        </div>
+      `).join('');
+
+      const facilities = [
+        { title: 'کارگاه شبکه', desc: 'مجهز به تجهیزات شبکه و کامپیوتر', icon: 'monitor' },
+        { title: 'کارگاه برنامه‌نویسی وب', desc: 'کامپیوترهای به‌روز و نرم‌افزار تخصصی', icon: 'code' },
+        { title: 'کارگاه طراحی گرافیک', desc: 'محیطی خلاق برای طراحی و چاپ', icon: 'pen' },
+        { title: 'استودیو عکاسی', desc: 'تجهیزات نورپردازی و دوربین تخصصی', icon: 'camera' },
+        { title: 'کارگاه دوخت', desc: 'چرخ‌های صنعتی و تجهیزات خیاطی', icon: 'dress' },
+        { title: 'کارگاه نقشه‌کشی', desc: 'نرم‌افزارهای معماری و نقشه‌کشی', icon: 'ruler' },
+        { title: 'کارگاه هنر کودک', desc: 'فضای آموزشی متناسب با کودکان', icon: 'child' },
+        { title: 'کتابخانه', desc: 'منابع آموزشی و کتاب‌های تخصصی', icon: 'book' }
+      ];
+      document.getElementById('facilitiesGrid').innerHTML = facilities.map(f => `
+        <div class="major-card" style="cursor:default;">
+          <div class="major-card-body" style="padding:24px;">
+            <div class="value-card-icon" style="margin:0 0 14px;">${ICONS[f.icon]}</div>
+            <h3 style="font-size:17px;font-weight:700;color:var(--text-heading);margin-bottom:8px;">${f.title}</h3>
+            <p style="font-size:14px;color:var(--text-muted);">${f.desc}</p>
+          </div>
+        </div>
+      `).join('');
+
+      const galleryImages = [
+        'https://images.unsplash.com/photo-1562774617-2743b2c5a0e6?w=400&q=80',
+        'https://images.unsplash.com/photo-1577896851234-fa12de0b7b89?w=400&q=80',
+        'https://images.unsplash.com/photo-1584433144859-1fc3ab64ff95?w=400&q=80',
+        'https://images.unsplash.com/photo-1503676263510-9823c97c9a3e?w=400&q=80',
+        'https://images.unsplash.com/photo-1580582932704-9be02764be6f?w=400&q=80',
+        'https://images.unsplash.com/photo-1541339907198-e08756dedf8f?w=400&q=80'
+      ];
+      document.getElementById('galleryGrid').innerHTML = galleryImages.map(g =>
+        `<img src="${g}" alt="محیط هنرستان حاتمی">`
+      ).join('');
+    });
+  </script>
+</body>
+</html>

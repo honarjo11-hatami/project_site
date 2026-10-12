@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پنل مدیریت | هنرستان حاتمی</title>
+  <meta name="description" content="پنل مدیریت محتوای هنرستان حاتمی">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-layout { display: grid; grid-template-columns: 240px 1fr; gap: 0; min-height: calc(100vh - 80px); }
+    .admin-sidebar { background: var(--navy); padding: 24px 0; color: #94A3B8; }
+    .admin-sidebar h3 { color: var(--white); font-size: 18px; font-weight: 800; padding: 0 24px 20px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 16px; }
+    .admin-menu-item { display: flex; align-items: center; gap: 10px; padding: 12px 24px; font-size: 14px; cursor: pointer; transition: var(--transition); }
+    .admin-menu-item:hover { background: rgba(255,255,255,.05); color: var(--white); }
+    .admin-menu-item.active { background: rgba(197,160,89,.12); color: var(--gold); border-right: 3px solid var(--gold); }
+    .admin-menu-item svg { width: 18px; height: 18px; }
+    .admin-content { padding: 30px; background: var(--silk); }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .admin-header h2 { font-size: 24px; font-weight: 800; color: var(--text-heading); }
+    .admin-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+    .admin-stat { background: var(--white); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); border: 1px solid var(--silk-200); }
+    .admin-stat-icon { width: 44px; height: 44px; background: var(--silk); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .admin-stat-icon svg { width: 22px; height: 22px; color: var(--gold); }
+    .admin-stat h4 { font-size: 28px; font-weight: 900; color: var(--text-heading); }
+    .admin-stat p { font-size: 14px; color: var(--text-muted); }
+    .admin-table { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--silk-200); overflow: hidden; }
+    .admin-table table { width: 100%; border-collapse: collapse; }
+    .admin-table th { background: var(--silk); padding: 14px 16px; text-align: right; font-size: 13px; font-weight: 700; color: var(--text-heading); }
+    .admin-table td { padding: 14px 16px; border-top: 1px solid var(--silk-200); font-size: 14px; color: var(--text-body); }
+    .admin-table tr:hover td { background: var(--silk); }
+    .badge-published { background: rgba(34,197,94,.1); color: #16A34A; padding: 3px 10px; border-radius: 50px; font-size: 12px; font-weight: 600; }
+    .badge-draft { background: rgba(234,179,8,.1); color: #CA8A04; padding: 3px 10px; border-radius: 50px; font-size: 12px; font-weight: 600; }
+    .admin-note { background: rgba(197,160,89,.08); border: 1px solid rgba(197,160,89,.2); border-radius: var(--radius); padding: 16px 20px; font-size: 14px; color: var(--text-body); margin-bottom: 24px; }
+    .admin-login { max-width: 400px; margin: 80px auto; background: var(--white); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-lg); border: 1px solid var(--silk-200); }
+    .admin-login h2 { text-align: center; font-size: 24px; font-weight: 800; color: var(--text-heading); margin-bottom: 8px; }
+    .admin-login p { text-align: center; color: var(--text-muted); margin-bottom: 24px; }
+    @media(max-width:768px) {
+      .admin-layout { grid-template-columns: 1fr; }
+      .admin-sidebar { display: none; }
+      .admin-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <!-- Login View -->
+  <div id="loginView">
+    <div class="admin-login">
+      <div id="loginLogo" style="text-align:center;margin-bottom:20px;"></div>
+      <h2>پنل مدیریت</h2>
+      <p>هنرستان فنی و حرفه‌ای حاتمی</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>نام کاربری</label>
+          <input type="text" placeholder="نام کاربری" value="admin">
+        </div>
+        <div class="form-group">
+          <label>رمز عبور</label>
+          <input type="password" placeholder="رمز عبور" value="admin">
+        </div>
+        <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">ورود</button>
+      </form>
+      <div id="loginNote" class="form-note" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <!-- Dashboard View -->
+  <div id="dashboardView" style="display:none;">
+    <div class="admin-layout">
+      <div class="admin-sidebar">
+        <h3>پنل مدیریت</h3>
+        <div class="admin-menu-item active" data-tab="dashboard" data-icon="layers">داشبورد</div>
+        <div class="admin-menu-item" data-tab="majors" data-icon="book">رشته‌ها</div>
+        <div class="admin-menu-item" data-tab="students" data-icon="user">هنرجویان</div>
+        <div class="admin-menu-item" data-tab="works" data-icon="gallery">آثار هنرجویان</div>
+        <div class="admin-menu-item" data-tab="news" data-icon="calendar">اخبار</div>
+        <div class="admin-menu-item" data-tab="settings" data-icon="target">تنظیمات</div>
+        <div class="admin-menu-item" id="logoutBtn" data-icon="login">خروج</div>
+      </div>
+      <div class="admin-content" id="adminContent"></div>
+    </div>
+  </div>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('');
+
+      // Fix login view icons
+      document.getElementById('loginLogo').innerHTML = '<div class="logo-icon" style="margin:0 auto;">' + ICONS.graduation + '</div>';
+      document.getElementById('loginNote').innerHTML = ICONS.eye + ' این پنل به‌صورت نمونه نمایش داده شده است. احراز هویت واقعی نیازمند پشتیبانی سمت سرور است.';
+
+      // Fix sidebar menu icons
+      document.querySelectorAll('.admin-menu-item').forEach(item => {
+        const icon = item.dataset.icon || 'layers';
+        const text = item.textContent.trim();
+        item.innerHTML = ICONS[icon] + ' ' + text;
+      });
+
+      // Login
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('dashboardView').style.display = 'block';
+        renderTab('dashboard');
+      });
+
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        document.getElementById('dashboardView').style.display = 'none';
+        document.getElementById('loginView').style.display = 'block';
+      });
+
+      // Tab switching
+      const menuItems = document.querySelectorAll('.admin-menu-item[data-tab]');
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          menuItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          renderTab(item.dataset.tab);
+        });
+      });
+
+      function renderTab(tab) {
+        const content = document.getElementById('adminContent');
+        if (tab === 'dashboard') {
+          content.innerHTML = `
+            <div class="admin-header"><h2>داشبورد</h2><span style="color:var(--text-muted);font-size:14px;">خوش آمدید، مدیر</span></div>
+            <div class="admin-note">${ICONS.eye} این پنل به‌صورت نمونه طراحی شده است. عملیات افزودن، ویرایش و حذف نیازمند اتصال به پایگاه داده سمت سرور است.</div>
+            <div class="admin-cards">
+              <div class="admin-stat"><div class="admin-stat-icon">${ICONS.layers}</div><h4>${toPersian(8)}</h4><p>رشته تحصیلی</p></div>
+              <div class="admin-stat"><div class="admin-stat-icon">${ICONS.user}</div><h4>${toPersian(STUDENTS.length)}</h4><p>هنرجو</p></div>
+              <div class="admin-stat"><div class="admin-stat-icon">${ICONS.gallery}</div><h4>${toPersian(STUDENTS.length)}</h4><p>اثر منتشرشده</p></div>
+              <div class="admin-stat"><div class="admin-stat-icon">${ICONS.calendar}</div><h4>${toPersian(NEWS.length)}</h4><p>خبر</p></div>
+            </div>
+            <div class="admin-table">
+              <table>
+                <tr><th>عنوان</th><th>دسته</th><th>تاریخ</th><th>وضعیت</th></tr>
+                ${NEWS.map(n => `<tr><td>${n.title}</td><td>${n.category}</td><td>${n.date}</td><td><span class="badge-published">منتشر شده</span></td></tr>`).join('')}
+              </table>
+            </div>
+          `;
+        } else if (tab === 'majors') {
+          content.innerHTML = `
+            <div class="admin-header"><h2>مدیریت رشته‌ها</h2><button class="btn btn-gold btn-sm">+ افزودن رشته</button></div>
+            <div class="admin-note">${ICONS.eye} افزودن، ویرایش و حذف رشته‌ها نیازمند اتصال به پایگاه داده است.</div>
+            <div class="admin-table">
+              <table>
+                <tr><th>عنوان رشته</th><th>توضیح</th><th>وضعیت</th><th>عملیات</th></tr>
+                ${MAJORS.map(m => `<tr><td>${m.title}</td><td style="max-width:300px;">${m.short}</td><td><span class="badge-published">منتشر شده</span></td><td><button class="btn btn-outline btn-sm">ویرایش</button></td></tr>`).join('')}
+              </table>
+            </div>
+          `;
+        } else if (tab === 'students') {
+          content.innerHTML = `
+            <div class="admin-header"><h2>مدیریت هنرجویان</h2><button class="btn btn-gold btn-sm">+ افزودن هنرجو</button></div>
+            <div class="admin-note">${ICONS.eye} مدیریت هنرجویان شامل افزودن، ویرایش و حذف است. داده‌های شخصی هنرجویان باید با رعایت حریم خصوصی مدیریت شوند.</div>
+            <div class="admin-table">
+              <table>
+                <tr><th>نام نمایشی</th><th>رشته</th><th>عنوان اثر</th><th>مجوز تصویر</th><th>عملیات</th></tr>
+                ${STUDENTS.map(s => {
+                  const major = MAJORS.find(m => m.id === s.majorId);
+                  return `<tr><td>${s.name}</td><td>${major.title}</td><td>${s.projectTitle}</td><td><span class="badge-draft">نیاز به مجوز</span></td><td><button class="btn btn-outline btn-sm">ویرایش</button></td></tr>`;
+                }).join('')}
+              </table>
+            </div>
+          `;
+        } else if (tab === 'works') {
+          content.innerHTML = `
+            <div class="admin-header"><h2>مدیریت آثار هنرجویان</h2><button class="btn btn-gold btn-sm">+ افزودن اثر</button></div>
+            <div class="admin-note">${ICONS.eye} آثار هنرجویان باید با مجوز انتشار مدیریت شوند.</div>
+            <div class="admin-table">
+              <table>
+                <tr><th>عنوان اثر</th><th>هنرجو</th><th>نوع</th><th>تاریخ</th><th>عملیات</th></tr>
+                ${STUDENTS.map(s => `<tr><td>${s.projectTitle}</td><td>${s.name}</td><td>${s.projectType}</td><td>${s.publishedAt}</td><td><button class="btn btn-outline btn-sm">ویرایش</button></td></tr>`).join('')}
+              </table>
+            </div>
+          `;
+        } else if (tab === 'news') {
+          content.innerHTML = `
+            <div class="admin-header"><h2>مدیریت اخبار</h2><button class="btn btn-gold btn-sm">+ افزودن خبر</button></div>
+            <div class="admin-note">${ICONS.eye} اخبار نمونه با برچسب «نمونه» مشخص شده‌اند. اخبار واقعی توسط مدیر منتشر می‌شوند.</div>
+            <div class="admin-table">
+              <table>
+                <tr><th>عنوان</th><th>دسته</th><th>تاریخ</th><th>وضعیت</th><th>عملیات</th></tr>
+                ${NEWS.map(n => `<tr><td>${n.title}</td><td>${n.category}</td><td>${n.date}</td><td><span class="badge-published">منتشر شده</span></td><td><button class="btn btn-outline btn-sm">ویرایش</button> <button class="btn btn-outline btn-sm">بایگانی</button></td></tr>`).join('')}
+              </table>
+            </div>
+          `;
+        } else if (tab === 'settings') {
+          content.innerHTML = `
+            <div class="admin-header"><h2>تنظیمات سایت</h2></div>
+            <div class="admin-note">${ICONS.eye} این تنظیمات به‌صورت نمونه نمایش داده شده‌اند.</div>
+            <div class="contact-form" style="max-width:600px;">
+              <div class="form-group"><label>نام هنرستان</label><input type="text" value="${SCHOOL.name}"></div>
+              <div class="form-group"><label>اداره مربوطه</label><input type="text" value="${SCHOOL.department}"></div>
+              <div class="form-group"><label>نشانی</label><input type="text" value="${SCHOOL.address}"></div>
+              <div class="form-group"><label>شماره تماس</label><input type="text" value="${SCHOOL.phone}"></div>
+              <div class="form-group"><label>ایمیل</label><input type="email" value="${SCHOOL.email}"></div>
+              <div class="form-group"><label>ساعات پاسخ‌گویی</label><input type="text" value="${SCHOOL.officeHours}"></div>
+              <button class="btn btn-gold">ذخیره تغییرات</button>
+            </div>
+          `;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

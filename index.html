@@ -1,38 +1,226 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-	<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>وب کده | آموزش طراحی وب</title><link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>هنرستان فنی و حرفه‌ای دولتی حاتمی ورزنه | مهارت، خلاقیت، آینده</title>
+  <meta name="description" content="وب‌سایت رسمی هنرستان فنی و حرفه‌ای دولتی حاتمی ورزنه - معرفی رشته‌های تحصیلی، آثار هنرجویان، اخبار و اطلاعات ثبت‌نام">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!--	headerبعنوان سربرگ سایت-->
+  <div id="header-slot"></div>
 
-<header class="header"><div class="container nav">
-<a class="logo" href="index.html">وب کده</a>
-<!--	--------منوها-->
-<nav><a href="index.html">خانه</a>
-<div class="dropdown"><button>دوره‌های آموزشی ▾</button><div class="dropdown-menu">
-<a href="html.html">HTML</a><a href="css.html">CSS</a><a href="javascript.html">JavaScript</a>
-<a href="jquery.html">jQuery</a><a href="bootstrap.html">Bootstrap</a><a href="wordpress.html">WordPress</a></div></div>
-<a href="#resources">منابع آموزشی</a><a href="about.html">درباره من</a><a href="contact.html">تماس با من</a></nav>
-<!--	----------------------------------->
-</div></header>
-<section class="hero"><div class="container hero-content"><div>
-<span class="badge">آموزش کاربردی طراحی وب</span><h1>یادگیری طراحی وب را از پایه شروع کن</h1>
-<p>از HTML و CSS شروع می‌کنیم و قدم‌به‌قدم به JavaScript، jQuery، Bootstrap و WordPress می‌رسیم.</p>
-<a class="btn" href="#courses">مشاهده دوره‌ها</a></div>
-<div class="hero-card">HTML<br><span>+</span><br>CSS<br><span>+</span><br>JavaScript</div></div></section>
-<section id="courses" class="section"><div class="container"><h2>دوره‌های آموزشی</h2>
-<p class="section-text">آموزش، تمرین، فایل آموزشی و پروژه‌های عملی</p><div class="cards">
-<a class="card" href="html.html"><h3>HTML</h3><p>ساختار صفحات وب</p></a>
-<a class="card" href="css.html"><h3>CSS</h3><p>طراحی و چیدمان</p></a>
-<a class="card" href="javascript.html"><h3>JavaScript</h3><p>تعامل و برنامه‌نویسی وب</p></a>
-<a class="card" href="jquery.html"><h3>jQuery</h3><p>کار آسان‌تر با JavaScript</p></a>
-<a class="card" href="bootstrap.html"><h3>Bootstrap</h3><p>طراحی واکنش‌گرا</p></a>
-<a class="card" href="wordpress.html"><h3>WordPress</h3><p>ساخت سایت با وردپرس</p></a>
-</div></div></section>
-<section id="resources" class="section light"><div class="container"><h2>منابع آموزشی</h2>
-<div class="resource-grid"><div><h3>📚 جزوه و پاورپوینت</h3><p>فایل‌های آموزشی هر دوره</p></div>
-<div><h3>📝 تمرین‌ها</h3><p>تمرین عملی برای هر جلسه</p></div><div><h3>💻 پروژه‌ها</h3><p>پروژه برای تقویت مهارت</p></div></div></div></section>
-<footer>© 2026 وب‌آموز | آموزش طراحی وب</footer><script src="js/script.js"></script>
-</body></html>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          مهارت، خلاقیت، آینده
+        </span>
+        <h1>اینجا استعدادها شکوفا می‌شوند<br><span class="gold">آینده را با مهارت می‌سازیم</span></h1>
+        <p>در هنرستان دخترانه حاتمی، هنرجویان در محیطی پویا و خلاق، دانش تخصصی، مهارت‌های کاربردی و توانایی‌های هنری خود را پرورش می‌دهند تا برای ادامه تحصیل و ورود به دنیای حرفه‌ای آماده شوند.</p>
+        <div class="hero-buttons">
+          <a href="about.html" class="btn btn-gold">آشنایی با هنرستان</a>
+          <a href="majors.html" class="btn btn-outline">مشاهده رشته‌های تحصیلی</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img class="hero-image" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80" alt="هنرجویان در محیط آموزشی هنرستان حاتمی">
+        <div class="hero-medal">
+          <div class="medal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <p>مرکز تخصصی آموزش فنی و حرفه‌ای دخترانه در ورزنه</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Bar -->
+  <section class="features-bar">
+    <div class="container">
+      <div class="features-grid" id="featuresGrid"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <span class="section-label">درباره هنرستان ما</span>
+          <h2>آموزش تخصصی،<br>مهارت برای زندگی</h2>
+          <p>هنرستان فنی و حرفه‌ای دولتی حاتمی ورزنه با هدف پرورش استعدادها، تقویت مهارت‌های تخصصی و آماده‌سازی هنرجویان برای آینده تحصیلی و شغلی فعالیت می‌کند. در این مجموعه، آموزش نظری در کنار تمرین عملی، خلاقیت، مسئولیت‌پذیری و کار گروهی مورد توجه قرار می‌گیرد.</p>
+          <a href="about.html" class="btn btn-navy">بیشتر درباره هنرستان</a>
+        </div>
+        <div class="about-image-wrap reveal">
+          <img class="about-image" src="https://images.unsplash.com/photo-1562774617-2743b2c5a0e6?w=600&q=80" alt="ساختمان و محیط هنرستان حاتمی">
+          <div class="about-image-badge">محیط آموزشی مدرن</div>
+        </div>
+        <div class="about-cards reveal" id="aboutCards"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Majors Section -->
+  <section class="section" id="majors">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-label">رشته‌های تحصیلی</span>
+        <h2 class="section-title">مسیر علاقه‌ات را انتخاب کن</h2>
+        <p class="section-subtitle">با رشته‌های تحصیلی هنرستان آشنا شو و زمینه مورد علاقه خود را برای یادگیری مهارت‌های تخصصی انتخاب کن.</p>
+      </div>
+      <div class="majors-grid" id="majorsGrid"></div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="majors.html" class="btn btn-outline">مشاهده همه رشته‌ها</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Works Preview -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-label">آثار هنرجویان</span>
+        <h2 class="section-title">از ایده تا اثر؛ خلاقیت هنرجویان حاتمی</h2>
+        <p class="section-subtitle">پروژه‌ها و آثار هنرجویان نشان‌دهنده توانمندی‌ها و خلاقیت‌های آنان در رشته‌های مختلف است.</p>
+      </div>
+      <div class="works-preview-grid" id="worksPreview"></div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="student-works.html" class="btn btn-outline">مشاهده همه آثار</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="stats-bar" id="stats">
+    <div class="container">
+      <div class="stats-grid" id="statsGrid"></div>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-label">اخبار و اطلاعیه‌ها</span>
+        <h2 class="section-title">آخرین اخبار هنرستان</h2>
+        <p class="section-subtitle">از جدیدترین اخبار، اطلاعیه‌ها و رویدادهای هنرستان حاتمی مطلع شوید.</p>
+      </div>
+      <div class="news-grid" id="newsGrid"></div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="news.html" class="btn btn-outline">مشاهده همه اخبار</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section section-light cta-section" id="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="reveal">
+          <img class="cta-image" src="https://images.unsplash.com/photo-1577896851234-fa12de0b7b89?w=600&q=80" alt="هنرجویان هنرستان حاتمی">
+        </div>
+        <div class="cta-content reveal">
+          <span class="section-label">ثبت‌نام و پذیرش</span>
+          <h2>قدم اول برای ساختن<br>آینده‌ای روشن</h2>
+          <p>با رشته‌های تحصیلی، امکانات آموزشی و فضای مهارت‌آموزی هنرستان حاتمی آشنا شو. مسیر مهارت‌آموزی خود را از همین امروز آغاز کن.</p>
+          <div class="cta-buttons">
+            <a href="majors.html" class="btn btn-gold">مشاهده رشته‌ها</a>
+            <a href="index.html#cta" class="btn btn-outline">راهنمای ثبت‌نام</a>
+            <a href="contact.html" class="btn btn-outline">تماس با هنرستان</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('home');
+
+      // Features
+      document.getElementById('featuresGrid').innerHTML = FEATURES.map(f => `
+        <div class="feature-item">
+          <div class="feature-icon">${ICONS[f.icon]}</div>
+          <h4>${f.title}</h4>
+          <p>${f.desc}</p>
+        </div>
+      `).join('');
+
+      // About cards
+      document.getElementById('aboutCards').innerHTML = ABOUT_CARDS.map(c => `
+        <div class="about-card">
+          <div class="about-card-icon">${ICONS[c.icon]}</div>
+          <div>
+            <h4>${c.title}</h4>
+            <p>${c.desc}</p>
+          </div>
+        </div>
+      `).join('');
+
+      // Majors (first 8)
+      document.getElementById('majorsGrid').innerHTML = MAJORS.map(m => `
+        <a class="major-card" href="major-detail.html?id=${m.id}">
+          <div class="major-card-img-wrap">
+            <img class="major-card-img" src="${m.image}" alt="${m.title}">
+            <span class="major-card-tag">${ICONS[MAJOR_ICONS[m.id]] ? '' : ''} رشته</span>
+          </div>
+          <div class="major-card-body">
+            <h3>${m.title}</h3>
+            <p>${m.short}</p>
+            <div class="major-card-skills">
+              ${m.skills.slice(0,3).map(s => `<span class="skill-tag">${s}</span>`).join('')}
+            </div>
+            <span class="major-card-link">معرفی رشته ${ICONS.arrow}</span>
+          </div>
+        </a>
+      `).join('');
+
+      // Works preview
+      document.getElementById('worksPreview').innerHTML = STUDENTS.slice(0,4).map(s => {
+        const major = MAJORS.find(m => m.id === s.majorId);
+        return `
+        <a class="work-card" href="student-detail.html?id=${s.id}">
+          <img class="work-card-img" src="${major.image}" alt="${s.projectTitle}">
+          <span class="work-card-badge">${s.projectType}</span>
+          <div class="work-card-overlay">
+            <h4>${s.projectTitle}</h4>
+            <p>${s.name} — ${major.title}</p>
+          </div>
+        </a>`;
+      }).join('');
+
+      // Stats
+      document.getElementById('statsGrid').innerHTML = STATS.map(s => `
+        <div class="stat-item">
+          <div class="stat-icon">${ICONS[s.icon]}</div>
+          <div class="stat-number">${s.number}</div>
+          <div class="stat-label">${s.label}</div>
+        </div>
+      `).join('');
+
+      // News
+      document.getElementById('newsGrid').innerHTML = NEWS.slice(0,3).map(n => `
+        <a class="news-card" href="news-detail.html?id=${n.id}">
+          <img class="news-card-img" src="${n.image}" alt="${n.title}">
+          <div class="news-card-body">
+            <span class="news-card-cat">${n.category}</span>
+            <h3>${n.title}</h3>
+            <p>${n.summary}</p>
+            <div class="news-card-meta">
+              <span>${ICONS.calendar} ${n.date}</span>
+              <span class="news-card-link">ادامه مطلب ${ICONS.arrow}</span>
+            </div>
+          </div>
+        </a>
+      `).join('');
+    });
+  </script>
+</body>
+</html>

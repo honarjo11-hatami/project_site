@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آثار هنرجویان | هنرستان حاتمی</title>
+  <meta name="description" content="گالری آثار و پروژه‌های هنرجویان هنرستان فنی و حرفه‌ای حاتمی ورزنه">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="page-banner">
+    <h1>آثار هنرجویان</h1>
+    <div class="breadcrumb"><a href="index.html">صفحه اصلی</a> <span>/</span> <span>آثار هنرجویان</span></div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">ویترین آثار</span>
+        <h2 class="section-title">از ایده تا اثر؛ خلاقیت هنرجویان حاتمی</h2>
+        <p class="section-subtitle">پروژه‌ها و آثار هنرجویان در رشته‌های مختلف، نشان‌دهنده توانمندی‌ها و خلاقیت‌های آنان است.</p>
+      </div>
+
+      <div class="works-toolbar">
+        <div class="filter-group" id="majorFilters"></div>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="جست‌وجوی نام هنرجو یا عنوان پروژه...">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+      </div>
+
+      <div class="filter-group" style="margin-bottom:24px;" id="typeFilters"></div>
+
+      <div class="works-grid" id="worksGrid"></div>
+      <div id="noResults" style="display:none;text-align:center;padding:40px;color:var(--text-muted);">نتیجه‌ای یافت نشد.</div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('works');
+
+      let currentMajor = getParam('major') || 'all';
+      let currentType = 'all';
+      let searchQuery = '';
+      let currentPage = 1;
+      const perPage = 9;
+
+      // Major filters
+      const majorFilterHtml = `<button class="filter-btn ${currentMajor==='all'?'active':''}" data-major="all">همه رشته‌ها</button>` +
+        MAJORS.map(m => `<button class="filter-btn ${currentMajor==m.id?'active':''}" data-major="${m.id}">${m.title}</button>`).join('');
+      document.getElementById('majorFilters').innerHTML = majorFilterHtml;
+
+      // Type filters
+      const types = [...new Set(STUDENTS.map(s => s.projectType))];
+      document.getElementById('typeFilters').innerHTML = `<button class="filter-btn active" data-type="all">همه انواع</button>` +
+        types.map(t => `<button class="filter-btn" data-type="${t}">${t}</button>`).join('');
+
+      function renderWorks() {
+        let filtered = STUDENTS.filter(s => {
+          const majorMatch = currentMajor === 'all' || s.majorId == currentMajor;
+          const typeMatch = currentType === 'all' || s.projectType === currentType;
+          const searchMatch = !searchQuery || s.name.includes(searchQuery) || s.projectTitle.includes(searchQuery);
+          return majorMatch && typeMatch && searchMatch;
+        });
+
+        const totalPages = Math.ceil(filtered.length / perPage);
+        if (currentPage > totalPages) currentPage = 1;
+        const start = (currentPage - 1) * perPage;
+        const pageItems = filtered.slice(start, start + perPage);
+
+        document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
+
+        document.getElementById('worksGrid').innerHTML = pageItems.map(s => {
+          const major = MAJORS.find(m => m.id === s.majorId);
+          return `
+          <a class="work-card" href="student-detail.html?id=${s.id}">
+            <img class="work-card-img" src="${major.image}" alt="${s.projectTitle}">
+            <span class="work-card-badge">${s.projectType}</span>
+            <div class="work-card-overlay">
+              <h4>${s.projectTitle}</h4>
+              <p>${s.name} — ${major.title}</p>
+            </div>
+          </a>`;
+        }).join('');
+
+        // Pagination
+        let pagHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+          pagHtml += `<button class="${i===currentPage?'active':''}" data-page="${i}">${toPersian(i)}</button>`;
+        }
+        if (totalPages > 1) {
+          pagHtml = `<button data-page="${currentPage-1}" ${currentPage===1?'disabled':''}>قبلی</button>` + pagHtml +
+            `<button data-page="${currentPage+1}" ${currentPage===totalPages?'disabled':''}>بعدی</button>`;
+        }
+        document.getElementById('pagination').innerHTML = pagHtml;
+
+        document.querySelectorAll('#pagination button[data-page]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const p = parseInt(btn.dataset.page);
+            if (p >= 1 && p <= totalPages) { currentPage = p; renderWorks(); window.scrollTo({top: 200, behavior:'smooth'}); }
+          });
+        });
+      }
+
+      // Filter events
+      document.querySelectorAll('#majorFilters .filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#majorFilters .filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentMajor = btn.dataset.major;
+          currentPage = 1;
+          renderWorks();
+        });
+      });
+      document.querySelectorAll('#typeFilters .filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#typeFilters .filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentType = btn.dataset.type;
+          currentPage = 1;
+          renderWorks();
+        });
+      });
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        currentPage = 1;
+        renderWorks();
+      });
+
+      renderWorks();
+    });
+  </script>
+</body>
+</html>

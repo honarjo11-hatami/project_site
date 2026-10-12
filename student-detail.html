@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پروفایل هنرجو | هنرستان حاتمی</title>
+  <meta name="description" content="صفحه اختصاصی هنرجو و آثار او">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="page-banner">
+    <h1 id="pageTitle">پروفایل هنرجو</h1>
+    <div class="breadcrumb"><a href="index.html">صفحه اصلی</a> <span>/</span> <a href="student-works.html">آثار هنرجویان</a> <span>/</span> <span id="pageCrumb">هنرجو</span></div>
+  </section>
+
+  <section class="section">
+    <div class="container" id="studentContent"></div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('works');
+      const id = parseInt(getParam('id')) || 1;
+      const s = STUDENTS.find(x => x.id === id) || STUDENTS[0];
+      const major = MAJORS.find(m => m.id === s.majorId);
+
+      document.title = s.name + ' | هنرستان حاتمی';
+      document.getElementById('pageTitle').textContent = s.name;
+      document.getElementById('pageCrumb').textContent = s.name;
+
+      document.getElementById('studentContent').innerHTML = `
+        <div class="student-profile">
+          <div>
+            <div style="width:100%;height:300px;border-radius:var(--radius-lg);background:var(--silk);display:flex;align-items:center;justify-content:center;color:var(--text-muted);box-shadow:var(--shadow);">
+              ${ICONS.user}
+            </div>
+            <div class="form-note" style="margin-top:16px;text-align:center;">
+              ${ICONS.eye} تصویر هنرجو تنها در صورت داشتن مجوز انتشار نمایش داده می‌شود.
+            </div>
+          </div>
+          <div class="student-info">
+            <span class="section-label">پروفایل هنرجو</span>
+            <h1>${s.name}</h1>
+            <span class="student-major">${major.title}</span>
+            <p style="color:var(--text-body);margin-bottom:20px;">${s.bio}</p>
+
+            <div class="info-block" style="margin-bottom:24px;">
+              <h2>اطلاعات پروژه</h2>
+              <ul class="info-list">
+                <li>${ICONS.star} عنوان اثر: ${s.projectTitle}</li>
+                <li>${ICONS.layers} نوع اثر: ${s.projectType}</li>
+                <li>${ICONS.calendar} تاریخ انتشار: ${s.publishedAt}</li>
+                <li>${ICONS.teacher} هنرآموز راهنما: ${s.mentor}</li>
+              </ul>
+            </div>
+
+            <h2 style="font-size:22px;font-weight:800;color:var(--text-heading);margin-bottom:16px;padding-right:14px;border-right:4px solid var(--gold);">آثار این هنرجو</h2>
+            <div class="student-projects">
+              <div class="student-project-card">
+                <img src="${major.image}" alt="${s.projectTitle}">
+                <div class="student-project-card-body">
+                  <h4>${s.projectTitle}</h4>
+                  <p>${s.bio}</p>
+                  <p style="font-size:12px;color:var(--gold);margin-top:6px;font-weight:600;">${s.projectType} — ${s.publishedAt}</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:32px;">
+              <a href="student-works.html" class="btn btn-outline">${ICONS.arrow} بازگشت به گالری آثار</a>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

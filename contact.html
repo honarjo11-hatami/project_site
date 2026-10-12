@@ -1,1 +1,137 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>تماس با من</title><link rel="stylesheet" href="css/style.css"></head><body><main class="section"><div class="container"><h1>تماس با من</h1><p>ایمیل و راه‌های ارتباطی مدرس را در این بخش قرار می‌دهیم.</p><a class="btn" href="index.html">صفحه اصلی</a></div></main></body></html>
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ارتباط با ما | هنرستان حاتمی</title>
+  <meta name="description" content="راه‌های ارتباطی با هنرستان فنی و حرفه‌ای دولتی حاتمی ورزنه">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="page-banner">
+    <h1>ارتباط با ما</h1>
+    <div class="breadcrumb"><a href="index.html">صفحه اصلی</a> <span>/</span> <span>ارتباط با ما</span></div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info-card" id="contactInfoCard"></div>
+        <div class="contact-form">
+          <h3 style="font-size:22px;font-weight:800;color:var(--text-heading);margin-bottom:24px;">ارسال پیام</h3>
+          <div class="form-success" id="formSuccess">پیام شما با موفقیت ثبت شد. در اسرع وقت پاسخ خواهیم داد.</div>
+          <form id="contactForm" novalidate>
+            <div class="form-group">
+              <label>نام و نام خانوادگی *</label>
+              <input type="text" id="name" placeholder="نام خود را وارد کنید" required>
+              <span class="form-error" id="nameError">لطفاً نام خود را وارد کنید.</span>
+            </div>
+            <div class="form-group">
+              <label>ایمیل *</label>
+              <input type="email" id="email" placeholder="example@email.com" required>
+              <span class="form-error" id="emailError">لطفاً یک ایمیل معتبر وارد کنید.</span>
+            </div>
+            <div class="form-group">
+              <label>موضوع</label>
+              <input type="text" id="subject" placeholder="موضوع پیام">
+            </div>
+            <div class="form-group">
+              <label>متن پیام *</label>
+              <textarea id="message" placeholder="پیام خود را بنویسید..." required></textarea>
+              <span class="form-error" id="messageError">لطفاً متن پیام را وارد کنید.</span>
+            </div>
+            <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">ارسال پیام</button>
+          </form>
+          <div class="form-note">
+            ارسال پیام از طریق این فرم نیازمند پیکربندی سامانه ارسال ایمیل است. در صورت عدم پیکربندی، پیام‌ها در سامانه مدیریت ذخیره می‌شوند اما ارسال ایمیل واقعی انجام نمی‌گیرد.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('contact');
+
+      // Render contact info card
+      document.getElementById('contactInfoCard').innerHTML = `
+        <h3>اطلاعات تماس</h3>
+        <div class="contact-info-item">
+          <div class="icon">${ICONS.location}</div>
+          <div>
+            <h4>نشانی</h4>
+            <p>ورزنه، استان اصفهان، خیابان اصلی، هنرستان حاتمی</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon">${ICONS.phone}</div>
+          <div>
+            <h4>شماره تماس</h4>
+            <p>۰۳۱-۳۲۲۲-XXXX</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon">${ICONS.mail}</div>
+          <div>
+            <h4>ایمیل</h4>
+            <p>info@hatami-school.ir</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon">${ICONS.clock}</div>
+          <div>
+            <h4>ساعات پاسخ‌گویی</h4>
+            <p>شنبه تا چهارشنبه، ۸:۰۰ تا ۱۵:۰۰</p>
+          </div>
+        </div>
+        <div style="margin-top:24px;">
+          <a href="tel:0313222" class="btn btn-gold" style="width:100%;justify-content:center;">
+            ${ICONS.phone} تماس تلفنی
+          </a>
+        </div>
+        <div class="form-note" style="margin-top:16px;background:rgba(255,255,255,.05);color:#94A3B8;">
+          ${ICONS.clock} اطلاعات تماس به‌صورت نمونه نمایش داده شده است. مقادیر واقعی توسط مدیر قابل ویرایش هستند.
+        </div>
+      `;
+
+      // Form validation
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let valid = true;
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+
+        document.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
+
+        if (!name.value.trim()) {
+          document.getElementById('nameError').classList.add('show');
+          valid = false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailRegex.test(email.value)) {
+          document.getElementById('emailError').classList.add('show');
+          valid = false;
+        }
+        if (!message.value.trim()) {
+          document.getElementById('messageError').classList.add('show');
+          valid = false;
+        }
+
+        if (valid) {
+          document.getElementById('formSuccess').classList.add('show');
+          form.reset();
+          setTimeout(() => document.getElementById('formSuccess').classList.remove('show'), 5000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

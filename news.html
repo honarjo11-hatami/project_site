@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اخبار و اطلاعیه‌ها | هنرستان حاتمی</title>
+  <meta name="description" content="آخرین اخبار، اطلاعیه‌ها و رویدادهای هنرستان فنی و حرفه‌ای حاتمی ورزنه">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="page-banner">
+    <h1>اخبار و اطلاعیه‌ها</h1>
+    <div class="breadcrumb"><a href="index.html">صفحه اصلی</a> <span>/</span> <span>اخبار</span></div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="works-toolbar">
+        <div class="filter-group" id="catFilters"></div>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="جست‌وجو در اخبار...">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+      </div>
+      <div class="news-list" id="newsList"></div>
+      <div id="noResults" style="display:none;text-align:center;padding:40px;color:var(--text-muted);">خبری یافت نشد.</div>
+    </div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('news');
+
+      let currentCat = 'all';
+      let searchQuery = '';
+
+      document.getElementById('catFilters').innerHTML =
+        `<button class="filter-btn active" data-cat="all">همه</button>` +
+        NEWS_CATEGORIES.map(c => `<button class="filter-btn" data-cat="${c}">${c}</button>`).join('');
+
+      function renderNews() {
+        let filtered = NEWS.filter(n => {
+          const catMatch = currentCat === 'all' || n.category === currentCat;
+          const searchMatch = !searchQuery || n.title.includes(searchQuery) || n.summary.includes(searchQuery);
+          return catMatch && searchMatch;
+        });
+
+        document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
+        document.getElementById('newsList').innerHTML = filtered.map(n => `
+          <a class="news-card" href="news-detail.html?id=${n.id}">
+            <img class="news-card-img" src="${n.image}" alt="${n.title}">
+            <div class="news-card-body">
+              <span class="news-card-cat">${n.category}</span>
+              <h3>${n.title}</h3>
+              <p>${n.summary}</p>
+              <div class="news-card-meta">
+                <span>${ICONS.calendar} ${n.date}</span>
+                <span class="news-card-link">ادامه مطلب ${ICONS.arrow}</span>
+              </div>
+            </div>
+          </a>
+        `).join('');
+      }
+
+      document.querySelectorAll('#catFilters .filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#catFilters .filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCat = btn.dataset.cat;
+          renderNews();
+        });
+      });
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderNews();
+      });
+
+      renderNews();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جزئیات رشته | هنرستان حاتمی</title>
+  <meta name="description" content="معرفی کامل رشته‌های تحصیلی هنرستان حاتمی ورزنه">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-slot"></div>
+
+  <section class="page-banner">
+    <h1 id="pageTitle">رشته تحصیلی</h1>
+    <div class="breadcrumb"><a href="index.html">صفحه اصلی</a> <span>/</span> <a href="majors.html">رشته‌ها</a> <span>/</span> <span id="pageCrumb">جزئیات</span></div>
+  </section>
+
+  <section class="section">
+    <div class="container" id="majorContent"></div>
+  </section>
+
+  <div id="footer-slot"></div>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initComponents('majors');
+      const id = parseInt(getParam('id')) || 1;
+      const m = MAJORS.find(x => x.id === id) || MAJORS[0];
+      document.title = m.title + ' | هنرستان حاتمی';
+      document.getElementById('pageTitle').textContent = m.title;
+      document.getElementById('pageCrumb').textContent = m.title;
+
+      document.getElementById('majorContent').innerHTML = `
+        <div class="major-hero">
+          <img class="major-hero-img" src="${m.image}" alt="${m.title}">
+          <div>
+            <span class="section-label">رشته تحصیلی</span>
+            <h1>${m.title}</h1>
+            <p>${m.description}</p>
+            <div class="major-card-skills" style="margin-bottom:20px;">
+              ${m.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+            </div>
+            <a href="student-works.html?major=${m.id}" class="btn btn-gold">مشاهده آثار هنرجویان این رشته</a>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <h2>مهارت‌های قابل یادگیری</h2>
+          <p>هنرجویان این رشته مهارت‌های تخصصی زیر را فرا می‌گیرند:</p>
+          <ul class="info-list">
+            ${m.skills.map(s => `<li>${ICONS.award} ${s}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <h2>نمونه فعالیت‌ها و پروژه‌های عملی</h2>
+          <p>در طول دوره تحصیلی، هنرجویان با پروژه‌های عملی و کارگاهی متنوعی آشنا می‌شوند که به تقویت مهارت‌های آنان کمک می‌کند. فعالیت‌ها شامل تمرین‌های عملی، پروژه‌های گروهی و کار در کارگاه‌های تخصصی است.</p>
+          <div class="gallery-grid" style="margin-top:20px;">
+            ${m.gallery.map(g => `<img src="${g}" alt="نمونه کار رشته ${m.title}">`).join('')}
+          </div>
+        </div>
+
+        <div class="info-block">
+          <h2>امکانات و ابزارهای مورد استفاده</h2>
+          <ul class="info-list">
+            ${m.workshops.map(w => `<li>${ICONS.workshop} ${w}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <h2>فرصت‌های ادامه تحصیل و مسیرهای شغلی</h2>
+          <p><strong>ادامه تحصیل:</strong> ${m.furtherStudy}</p>
+          <p><strong>مسیرهای شغلی:</strong> ${m.careers}</p>
+          <div class="form-note" style="margin-top:16px;">
+            ${ICONS.target} این اطلاعات به‌صورت توصیفی ارائه شده است و هیچ‌گونه تضمینی برای استخدام یا قبولی در دانشگاه‌ها نیست. موفقیت هنرجو به تلاش، پشتکار و عوامل متعدد دیگر بستگی دارد.
+          </div>
+        </div>
+
+        <div class="info-block">
+          <h2>گالری تصاویر رشته</h2>
+          <div class="gallery-grid">
+            ${m.gallery.map(g => `<img src="${g}" alt="گالری رشته ${m.title}">`).join('')}
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:40px;">
+          <a href="majors.html" class="btn btn-outline">${ICONS.arrow} بازگشت به فهرست رشته‌ها</a>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
